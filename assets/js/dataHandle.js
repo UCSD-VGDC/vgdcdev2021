@@ -1,5 +1,9 @@
-  var eventSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1OrcE2Y49yIGPfKYSlQnqHWWVWR3eT-VVz37uOpp0PE0/edit?usp=sharing';
+//GLOBALS
+var AT_STRING = " from ";
+var IN_STRING = " in room ";
+var eventSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1OrcE2Y49yIGPfKYSlQnqHWWVWR3eT-VVz37uOpp0PE0/edit?usp=sharing';
 
+//initialize loading in data for events
   function initEvents() {
     Tabletop.init( { key: eventSpreadsheetUrl,
                      callback: displayEventInfo,
@@ -24,10 +28,19 @@
 
       //create and append container 
       var newNodeContainer = document.createElement("DD"); 
-      //create and append paragraph to container
-      var newPar = document.createElement("P"); 
-      newPar.innerHTML = data[i].description;
-      newNodeContainer.appendChild(newPar);  
+      //create and append primary information paragraph to container
+      var infoPar = document.createElement("DIV"); 
+      var timeRange  = "<b>"+data[i].timeRange+"</b>";
+      var date = "<b>"+data[i].date+"</b>";
+      var room =  "<b>"+data[i].room+"</b>";
+      infoPar.innerHTML = date+ AT_STRING + timeRange + IN_STRING + room;
+      newNodeContainer.appendChild(infoPar);  
+      //create and append description paragraph to container
+      var descriptionPar = document.createElement("P"); 
+      descriptionPar.innerHTML = data[i].description;
+      newNodeContainer.appendChild(descriptionPar);  
+
+
       eventBin.appendChild(newNodeContainer);  
 
 
