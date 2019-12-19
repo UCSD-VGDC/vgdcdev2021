@@ -16,9 +16,22 @@
     var numEvents = data.length;
 
     for (var i = 0; i < numEvents; i++) {
-      var newNode = document.createElement("DT"); 
-      newNode.innerHTML = data[i].eventName;
-      eventBin.appendChild(newNode);  
+      //create and append header 
+      var newNodeHead = document.createElement("DT"); 
+      newNodeHead.innerHTML = data[i].eventName;
+      eventBin.appendChild(newNodeHead);  
+
+
+      //create and append container 
+      var newNodeContainer = document.createElement("DD"); 
+      //create and append paragraph to container
+      var newPar = document.createElement("P"); 
+      newPar.innerHTML = data[i].description;
+      newNodeContainer.appendChild(newPar);  
+      eventBin.appendChild(newNodeContainer);  
+
+
+
       /*
       console.log(data[i].description);
       console.log(data[i].timeRange);
