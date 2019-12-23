@@ -2,8 +2,13 @@
 var DATA_URL = 'https://docs.google.com/spreadsheets/d/1rZCyz2gIUeZ2yr7oNToceAiZoK-8WBIrL8elu9fscoY/edit?usp=sharing'
 //initialize loading in data for events
 
-var jobData; 
-var isFullTime = false;
+var jobData;
+var currData;  
+var isFullTime = true;
+var fullTimeState;
+var internState; 
+var fullCount = 0;
+var internCount = 0;
 
 function startSystem(){
   initSystem();
@@ -19,40 +24,83 @@ function initSystem() {
 function initButtons() {
 	document.getElementById("priority-full").onclick = FilterFullTime;
 	document.getElementById("priority-internship").onclick = FilterInternships;
+	document.getElementById("searchBar").onkeyup = FilterString;
+	document.getElementById("searchButton").onclick = FilterString;
+	fullTimeState = document.getElementById("fullTimeState");
+	internState = document.getElementById("internState");	
 }
-
+function FilterString(){
+	var searchTerm = document.getElementById("searchBar").value.toLowerCase();
+	currData =[];
+	fullCount = 0;
+	internCount = 0;
+	for (var i = 0; i < jobData.length; i++) {
+		if (jobData[i].jobTitle.toLowerCase().includes(searchTerm)) {
+			currData.push(jobData[i]);
+		}
+		else if (jobData[i].jobLocation.toLowerCase().includes(searchTerm)) {
+			currData.push(jobData[i]);
+		}
+		else if (jobData[i].jobType.toLowerCase().includes(searchTerm)) {
+			currData.push(jobData[i]);
+		}
+		else if (jobData[i].dutiesString.toLowerCase().includes(searchTerm)) {
+			currData.push(jobData[i]);
+		}
+		else if (jobData[i].reqString.toLowerCase().includes(searchTerm)) {
+			currData.push(jobData[i]);
+		}
+		else if (jobData[i].company.toLowerCase().includes(searchTerm)) {
+			currData.push(jobData[i]);
+		}
+	}
+	console.log(currData);
+	if (isFullTime) {
+		FilterFullTime();
+	}
+	else {
+		FilterInternships();
+	}
+	internState.innerHTML = "INTERNSHIP (" + internCount +")";
+	fullTimeState.innerHTML = "Full time (" + internCount +")";
+}
 function FilterInternships(){
 	var body = document.getElementById("bodyContent");
 	renderData("intern", 0, body)
+	isFullTime = false;
 }
 function FilterFullTime(){
 	var body = document.getElementById("bodyContent");
 	renderData("fullTime", 0, body)
+	isFullTime = true;
 }
 
 function displayGeneralInfo(data, tabletop) {
   storeData(data);
   var body = document.getElementById("bodyContent");
-  renderData("fullTime", 0, body)
+  renderData("fullTime", 0, body);
+  internState.innerHTML = "INTERNSHIP (" + internCount +")";
+  fullTimeState.innerHTML = "Full time (" + internCount +")";
 }
 function storeData(data){
   jobData = data;
+  currData = jobData;
 }
 
 function addEntry(bodyElement,dataId) {
 	var newRow = document.createElement("tr"); 
 	var newComp = document.createElement("td"); 
-	newComp.innerHTML=jobData[dataId].company;	
+	newComp.innerHTML=currData[dataId].company;	
 	var newTitle = document.createElement("td"); 
-	newTitle.innerHTML=jobData[dataId].jobTitle;
+	newTitle.innerHTML=currData[dataId].jobTitle;
 	var newType = document.createElement("td"); 
-	newType.innerHTML=jobData[dataId].jobType;
+	newType.innerHTML=currData[dataId].jobType;
 	var newLocation = document.createElement("td");
-	newLocation.innerHTML=jobData[dataId].jobLocation;
+	newLocation.innerHTML=currData[dataId].jobLocation;
 	var newApply = document.createElement("td");
 	var applyText = document.createElement("a");
 	applyText.innerHTML = "Apply";
-	applyText.href = jobData[dataId].jobDetailsUrl;
+	applyText.href = currData[dataId].jobDetailsUrl;
 	newApply.appendChild(applyText);
 	newRow.appendChild(newComp);
 	newRow.appendChild(newTitle);
@@ -66,23 +114,33 @@ function renderData(typeName,isAsc,bodyElement){
 	while (bodyElement.firstChild) {
     	bodyElement.removeChild(bodyElement.firstChild);
   	}
+  	for (var i = 0; i < currData.length; i++) {
+		if (currData[i].isInternship == "no") {
+			fullCount++;
+		}
+		else {
+			internCount++;
+		}
+	}
   	console.log("in here")
 	if (typeName == "") {
-		for (var i = 0; i < jobData.length; i++) {
+		for (var i = 0; i < currData.length; i++) {
 			addEntry(bodyElement,i);
 		}
 	}
 	else if (typeName == "intern") {
-		for (var i = 0; i < jobData.length; i++) {
-			if (jobData[i].isInternship == "yes") {
+		for (var i = 0; i < currData.length; i++) {
+			if (currData[i].isInternship == "yes") {
 				addEntry(bodyElement,i);
+				internCount++;
 			}
 		}
 	}
 	else {
-		for (var i = 0; i < jobData.length; i++) {
-			if (jobData[i].isInternship == "no") {
+		for (var i = 0; i < currData.length; i++) {
+			if (currData[i].isInternship == "no") {
 				addEntry(bodyElement,i);
+				fullCount++;
 			}
 		}
 	}
