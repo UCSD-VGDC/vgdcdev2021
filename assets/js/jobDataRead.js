@@ -7,6 +7,7 @@ var isFullTime = false;
 
 function startSystem(){
   initSystem();
+  initButtons();
 }
 //initializes reading and render of event info
 function initSystem() {
@@ -15,10 +16,24 @@ function initSystem() {
                    simpleSheet: true } )
 }
 
+function initButtons() {
+	document.getElementById("priority-full").onclick = FilterFullTime;
+	document.getElementById("priority-internship").onclick = FilterInternships;
+}
+
+function FilterInternships(){
+	var body = document.getElementById("bodyContent");
+	renderData("intern", 0, body)
+}
+function FilterFullTime(){
+	var body = document.getElementById("bodyContent");
+	renderData("fullTime", 0, body)
+}
+
 function displayGeneralInfo(data, tabletop) {
   storeData(data);
   var body = document.getElementById("bodyContent");
-  renderData("",0,body);
+  renderData("fullTime", 0, body)
 }
 function storeData(data){
   jobData = data;
@@ -46,9 +61,30 @@ function addEntry(bodyElement,dataId) {
 	newRow.appendChild(newApply);
 	bodyElement.appendChild(newRow);
 }
+
 function renderData(typeName,isAsc,bodyElement){
-	for (var i = 0; i < jobData.length; i++) {
-		addEntry(bodyElement,i);
+	while (bodyElement.firstChild) {
+    	bodyElement.removeChild(bodyElement.firstChild);
+  	}
+  	console.log("in here")
+	if (typeName == "") {
+		for (var i = 0; i < jobData.length; i++) {
+			addEntry(bodyElement,i);
+		}
+	}
+	else if (typeName == "intern") {
+		for (var i = 0; i < jobData.length; i++) {
+			if (jobData[i].isInternship == "yes") {
+				addEntry(bodyElement,i);
+			}
+		}
+	}
+	else {
+		for (var i = 0; i < jobData.length; i++) {
+			if (jobData[i].isInternship == "no") {
+				addEntry(bodyElement,i);
+			}
+		}
 	}
 }
 
