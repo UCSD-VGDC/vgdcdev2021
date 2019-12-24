@@ -62,7 +62,7 @@ function FilterString(){
 		FilterInternships();
 	}
 	internState.innerHTML = "INTERNSHIP (" + internCount +")";
-	fullTimeState.innerHTML = "Full time (" + internCount +")";
+	fullTimeState.innerHTML = "Full time (" + fullCount +")";
 }
 function FilterInternships(){
 	var body = document.getElementById("bodyContent");
@@ -80,7 +80,7 @@ function displayGeneralInfo(data, tabletop) {
   var body = document.getElementById("bodyContent");
   renderData("fullTime", 0, body);
   internState.innerHTML = "INTERNSHIP (" + internCount +")";
-  fullTimeState.innerHTML = "Full time (" + internCount +")";
+  fullTimeState.innerHTML = "Full time (" + fullCount +")";
 }
 function storeData(data){
   jobData = data;
