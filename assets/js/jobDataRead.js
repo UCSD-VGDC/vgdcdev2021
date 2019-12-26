@@ -94,7 +94,10 @@ function addEntry(bodyElement,dataId) {
 	var newTitle = document.createElement("td"); 
 	newTitle.innerHTML=currData[dataId].jobTitle;
 	var newType = document.createElement("td"); 
-	newType.innerHTML=currData[dataId].jobType;
+	newType.innerHTML=currData[dataId].jobType.replace(/-/g, ' ').toLowerCase()
+    .split(' ')
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(' ');
 	var newLocation = document.createElement("td");
 	newLocation.innerHTML=currData[dataId].jobLocation;
 	var newApply = document.createElement("td");
@@ -117,30 +120,14 @@ function renderData(typeName,isAsc,bodyElement){
   	for (var i = 0; i < currData.length; i++) {
 		if (currData[i].isInternship == "no") {
 			fullCount++;
+			if (typeName != "intern" || typeName == "") {
+				addEntry(bodyElement,i);
+			}
 		}
 		else {
 			internCount++;
-		}
-	}
-  	console.log("in here")
-	if (typeName == "") {
-		for (var i = 0; i < currData.length; i++) {
-			addEntry(bodyElement,i);
-		}
-	}
-	else if (typeName == "intern") {
-		for (var i = 0; i < currData.length; i++) {
-			if (currData[i].isInternship == "yes") {
+			if (typeName == "intern" || typeName == "") {
 				addEntry(bodyElement,i);
-				internCount++;
-			}
-		}
-	}
-	else {
-		for (var i = 0; i < currData.length; i++) {
-			if (currData[i].isInternship == "no") {
-				addEntry(bodyElement,i);
-				fullCount++;
 			}
 		}
 	}
