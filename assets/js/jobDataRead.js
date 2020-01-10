@@ -11,7 +11,7 @@ var fullCount = 0;
 var internCount = 0;
 
 function startSystem(){
-  initSystem();
+  initOfficers();
   initButtons();
 }
 //initializes reading and render of event info
@@ -21,7 +21,7 @@ function initSystem() {
                    simpleSheet: true } )
 }
 
-function initButtons() {
+function initOfficers() {
 	document.getElementById("priority-full").onclick = FilterFullTime;
 	document.getElementById("priority-internship").onclick = FilterInternships;
 	document.getElementById("searchBar").onkeyup = FilterString;
@@ -87,7 +87,7 @@ function storeData(data){
   currData = jobData;
 }
 
-function addEntry(bodyElement,dataId) {
+function addOfficer(bodyElement,dataId) {
 	var newRow = document.createElement("tr"); 
 	var newComp = document.createElement("td"); 
 	newComp.innerHTML=currData[dataId].company;	
@@ -112,25 +112,4 @@ function addEntry(bodyElement,dataId) {
 	newRow.appendChild(newApply);
 	bodyElement.appendChild(newRow);
 }
-
-function renderData(typeName,isAsc,bodyElement){
-	while (bodyElement.firstChild) {
-    	bodyElement.removeChild(bodyElement.firstChild);
-  	}
-  	for (var i = 0; i < currData.length; i++) {
-		if (currData[i].isInternship == "no") {
-			fullCount++;
-			if (typeName != "intern" || typeName == "") {
-				addEntry(bodyElement,i);
-			}
-		}
-		else {
-			internCount++;
-			if (typeName == "intern" || typeName == "") {
-				addEntry(bodyElement,i);
-			}
-		}
-	}
-}
-
 window.addEventListener('DOMContentLoaded', startSystem);
