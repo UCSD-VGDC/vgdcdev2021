@@ -29,16 +29,6 @@ function initButtons() {
 	fullTimeState = document.getElementById("fullTimeState");
 	internState = document.getElementById("internState");	
 }
-function storeData(data) {
-	currData = jobData;	
-}
-function addEntry(bodyElemnt,dataId) {
-	var newRow = document.createElement("tr"); 
-	var newComp = document.createElement("td"); 
-	newComp.innerHTML=currData[dataId].company;	
-	newRow.appendChild(newApply);
-	bodyElement.appendChild(newRow);
-}
 function FilterString(){
 	var searchTerm = document.getElementById("searchBar").value.toLowerCase();
 	currData =[];
@@ -97,6 +87,32 @@ function storeData(data){
   currData = jobData;
 }
 
+function addEntry(bodyElement,dataId) {
+	var newRow = document.createElement("tr"); 
+	var newComp = document.createElement("td"); 
+	newComp.innerHTML=currData[dataId].company;	
+	var newTitle = document.createElement("td"); 
+	newTitle.innerHTML=currData[dataId].jobTitle;
+	var newType = document.createElement("td"); 
+	newType.innerHTML=currData[dataId].jobType.replace(/-/g, ' ').toLowerCase()
+    .split(' ')
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(' ');
+	var newLocation = document.createElement("td");
+	newLocation.innerHTML=currData[dataId].jobLocation;
+	var newApply = document.createElement("td");
+	var applyText = document.createElement("a");
+	applyText.innerHTML = "Apply";
+	applyText.href = currData[dataId].jobDetailsUrl;
+	newApply.appendChild(applyText);
+	newRow.appendChild(newComp);
+	newRow.appendChild(newTitle);
+	newRow.appendChild(newType);
+	newRow.appendChild(newLocation);
+	newRow.appendChild(newApply);
+	bodyElement.appendChild(newRow);
+}
+
 function renderData(typeName,isAsc,bodyElement){
 	while (bodyElement.firstChild) {
     	bodyElement.removeChild(bodyElement.firstChild);
@@ -116,4 +132,5 @@ function renderData(typeName,isAsc,bodyElement){
 		}
 	}
 }
+
 window.addEventListener('DOMContentLoaded', startSystem);
