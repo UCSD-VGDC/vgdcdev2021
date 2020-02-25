@@ -38,6 +38,7 @@ function addOfficer(data,dataId) {
 	var nextCenter = document.createElement("center"); 
 	var nextText =  document.createElement("small");
 	nextText.style.fontSize = "small";
+	nextText.style.lineHeight = "normal";
 	nextText.innerHTML = data[dataId].Major;
 	
 	nextCenter.appendChild(nextText);
