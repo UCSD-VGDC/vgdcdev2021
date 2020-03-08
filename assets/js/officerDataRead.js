@@ -49,10 +49,10 @@ function addOfficer(data,dataId) {
 	var newIMG = document.createElement("img"); 
 	newIMG.src = data[dataId].ProfilePic;
 
-	newDiv.appendChild(newCenter);
-	newDiv.appendChild(nextCenter);
 	newA.appendChild(newIMG);
 	newDiv.appendChild(newA);
+	newDiv.appendChild(newCenter);
+	newDiv.appendChild(nextCenter);
 
 	var num = Math.floor(dataId/3);
 	if (num%2 == 0) {
