@@ -7,6 +7,34 @@
 	License: pixelarity.com/license
 */
 
+.gallery {
+	margin: 60px 40px;
+	padding: 20px;
+	background-color: rgb(57, 64, 102);
+}
+
+.gallery h2 {
+	padding-left: 5px;
+}
+
+.gallery a{
+	border-bottom: none;
+}
+
+.gallery img {
+	width: 250px;
+	padding: 5px;
+	transition: 1s;
+}
+
+.gallery img:hover{
+	transform: scale(1.1);
+}
+
+/* 
+Above is new added by Kara temporarily
+*/
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
