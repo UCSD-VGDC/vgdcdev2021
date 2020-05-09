@@ -65,57 +65,102 @@
 				<!-- Main -->
 					<div id="main">
 
-						<!-- One -->
-							<section id="one" class="tiles">
-								<article>
-									<span class="image">
-										<img src="images/pic01.jpg" alt="" />
-									</span>
+						<section id="contactz">
+							<div class="inner">
+								<section>
 									<header class="major">
-										<h3><a href="https://store.steampowered.com/app/1005870/HYPERFIGHT/" class="link">Hyperfight</a></h3>
-										<p>A sick one hit fighter</p>
-									</header>
-								</article>
-								<article>
-									<span class="image">
-										<img src="images/pic02.jpg" alt="" />
-									</span>
+										<h2>Our Upcoming Events</h2>
+										</header>
+										<dl id="eventBin"></dl>
+								</section>
+								<section class="split">
+									<section>
+										<div class="contact-method">
+											<section>
+											<a href="https://justbrentvanzant.github.io/VGD001/#home">
+												<header class="major">
+													<h2>VGDC Game Development Course!</h2>
+												</header>
+												<img class="devimg"src="images/devclass.jpg">
+											</a>
+											
+										</section>
+										</div>
+									</section>
+								</section>
+							</div>
+						</section>
+
+
+
+						<section id="one">
+						<!-- Slideshow container -->
+							<div class = slideshow_section>
+							<div class="slideshow-container">
+
+
+								<!-- Full-width images with number and caption text -->
+
+								<div class="mySlides fade tiles">
+									<article>
+									<div class="numbertext">1 / 4</div>
+									<img class ="slide_img" src="images/pic02.jpg" alt="" style="width:100%">
 									<header class="major">
 										<h3><a href="https://store.steampowered.com/app/853770/MAXIMUM_Action/" class="link">Maximum Action</a></h3>
 										<p>A crazy retro 2D-shooter.</p>
 									</header>
-								</article>
+									</article>
+									</div>
+
+								<div class="mySlides fade tiles">
 								<article>
-									<span class="image">
-										<img src="images/pic03.jpg" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="https://www.kickstarter.com/projects/longstorystudios/unit-108/description?lang=it" class="link">Unit 108</a></h3>
-										<p>A stylistic 2D Platformer</p>
-									</header>
+								<div class="numbertext">2 / 4</div>
+								<img class ="slide_img" src="images/pic01.jpg" alt="" style="width:100%">
+								<header class="major">
+									<h3><a href="https://store.steampowered.com/app/1005870/HYPERFIGHT/" class="link">Hyperfight</a></h3>
+									<p>A sick one hit fighter</p>
+								</header>
 								</article>
-								<article>
-									<span class="image">
-										<img src="images/pic04.jpg" alt="" />
-									</span>
-									<header class="major">
+								</div>
+                            
+								<div class="mySlides fade tiles">
+                                <article>
+								<div class="numbertext">3 / 4</div>
+								<img class ="slide_img" src="images/pic03.jpg" alt="" style="width:100%">
+                                <header class="major">
+                                    <h3><a href="https://www.kickstarter.com/projects/longstorystudios/unit-108/description?lang=it" class="link">Unit 108</a></h3>
+                                    <p>A stylistic 2D Platformer</p>
+                                </header>
+                                </article>
+								</div>
+
+								<div class="mySlides fade tiles">
+                                <article>
+									<div class="numbertext">4 / 4</div>
+									<img class ="slide_img" src="images/pic04.jpg" alt="" style="width:100%">
+                                    <header class="major">
 										<h3><a href="https://www.indiecade.com/patricks-parabox/" class="link">Patricks Parabox</a></h3>
 										<p>A recursive puzzler. (Winner of Developers Choice at Indiecade!!!)</p>
-									</header>
-								</article>
-							</section>
-
-						<!-- Two -->
-							<section id="two">
-								<div class="inner">
-									<header class="major">
-										<h2>Our Upcoming Events</h2>
-									</header>
-									<dl id="eventBin">
-										
-									</dl>
+                                    </header>
+                                </article>
 								</div>
-							</section>
+							</div>
+
+							<!-- The dots/circles -->
+							<div style="text-align: center">
+								<!-- Next and previous buttons -->
+								<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+							
+								<span class="dot" onclick="currentSlide(1)"></span>
+								<span class="dot" onclick="currentSlide(2)"></span>
+								<span class="dot" onclick="currentSlide(3)"></span>
+								<span class="dot" onclick="currentSlide(4)"></span>
+
+								<a class="next right" onclick="plusSlides(1)">&#10095;</a>
+							</div>
+
+						</div>
+						</section>
 
 					</div>
 
@@ -151,13 +196,13 @@
 										<h3>Affiliations</h3>
 									</div>
 								</section>
-								<section>
+								<!-- <section>
 									<div class="contact-method">
 										<span class="icon solid alt fa-calendar"></span>
 										<h3>Next Event</h3>
 										<span>Dev Day - (CSE B225) - 7:00 PM</span>
 									</div>
-								</section>
+								</section> -->
 								<section>
 									<div class="contact-method">
 										<span class="icon solid alt fa-home"></span>
@@ -192,5 +237,6 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/dataHandle.js"></script>
+			<script src="assets/js/carousel.js"></script>
 	</body>
 </html>
