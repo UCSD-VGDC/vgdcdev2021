@@ -120,19 +120,39 @@ Below is added by Kara temporarily
 	padding-left: 5px;
 }
 
-.gallery a{
-	border-bottom: none;
-}
-
 .gallery img {
-	width: 250px;
+	width: 24%;
 	padding: 5px;
-	transition: 1s;
+	transition: .5s;
+	cursor: pointer;
 }
 
 .gallery img:hover{
-	transform: scale(1.1);
+	transform: scale(1.05);
 }
+
+#lightbox {
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .8);
+	display: none;
+  }
+  
+#lightbox.active {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+#lightbox img {
+	max-width: 90%;
+	max-height: 80%;
+	padding: 4px;
+	background-color: white;
+  }
 
 /* Below added by Matthew */
 .logoImage {
