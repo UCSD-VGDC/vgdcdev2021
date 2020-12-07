@@ -1,0 +1,20 @@
+/*
+	Forty by Pixelarity
+	pixelarity.com | hello@pixelarity.com
+	License: pixelarity.com/license
+*/
+/* Banner */
+body.is-preload #banner:after {
+  opacity: 0.85;
+}
+
+body.is-preload #banner > .inner {
+  -moz-filter: none;
+  -webkit-filter: none;
+  -ms-filter: none;
+  filter: none;
+  -webkit-transform: none;
+  transform: none;
+  opacity: 1;
+}
+/*# sourceMappingURL=noscript.css.map */

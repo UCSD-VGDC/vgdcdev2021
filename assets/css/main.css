@@ -7,6 +7,79 @@
 	License: pixelarity.com/license
 */
 
+/* 
+Fall showcase
+sorry for messy coding :(
+*/
+
+.videoContainer {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.responsive-iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+  }
+
+.showcaseGames {
+	display: grid;
+	grid-gap: 2rem;
+	grid-template-columns: repeat(2, minmax(400px, 1fr));
+}
+
+@media only screen and (max-width: 945px) {
+	.showcaseGames {
+		grid-template-columns: 1fr;
+	}
+}
+
+.game {
+	background-color: #242943;
+	padding: 2rem 2rem 1rem 3rem;
+	width: 100%;
+}
+
+.game-title {
+	padding: 0;
+	margin: 0;
+}
+
+.game-team {
+	padding: 0;
+	margin: 0;
+	margin-bottom: 1rem;
+}
+
+.game-pic {
+	width: 100%;
+  	height: auto;
+	object-fit: cover;
+}
+
+.game-descript {
+	padding: 0;
+	margin: 0;
+}
+
+.game-footer {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1rem;
+}
+
+/* 
+Fall showcase
+sorry for messy coding :(
+*/
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
