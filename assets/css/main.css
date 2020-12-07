@@ -7,162 +7,78 @@
 	License: pixelarity.com/license
 */
 
-* {box-sizing:border-box}
+/* 
+Fall showcase
+sorry for messy coding :(
+*/
 
-/* Added Padding */
-.slideshow_section {
-	padding: 2em 0;
+.videoContainer {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
 }
 
-/* Slideshow container */
-.slideshow-container {
-	max-height: 560px;
-	max-width: 80%;
-  position: relative;
-  margin: auto;
-  overflow: hidden;
-  margin-bottom: 0.75em;
+.responsive-iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+  }
+
+.showcaseGames {
+	display: grid;
+	grid-gap: 2rem;
+	grid-template-columns: repeat(2, minmax(400px, 1fr));
 }
 
-/* Hide the images by default */
-.mySlides {
-  display: none;
+@media only screen and (max-width: 945px) {
+	.showcaseGames {
+		grid-template-columns: 1fr;
+	}
 }
 
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: relative;
-  width: auto;
-  margin-right: 33%;
-  padding: 8px;
-  color: white;
-  font-weight: bold;
-  font-size: 50px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  border: none;
-  display: inline-block;
-  
+.game {
+	background-color: #242943;
+	padding: 2rem 2rem 1rem 3rem;
+	width: 100%;
 }
 
-.next {
-    border-radius: 3px 0 0 3px;
-    margin-right: 0%;
+.game-title {
+	padding: 0;
+	margin: 0;
 }
 
-/* Position the "next button" to the right */
-.right {
-    border-radius: 3px 0 0 3px;
-    margin-right: 0%;
-    margin-left: 33%;
+.game-team {
+	padding: 0;
+	margin: 0;
+	margin-bottom: 1rem;
 }
 
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+.game-pic {
+	width: 100%;
+  	height: auto;
+	object-fit: cover;
 }
 
-/* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 18px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
+.game-descript {
+	padding: 0;
+	margin: 0;
 }
 
-/* The dots/bullets/indicators */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-.active, .dot:hover {
-  background-color: #717171;
-}
-
-/* Fading animation */
-.fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
-
-@-webkit-keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
-}
-
-@keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+.game-footer {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1rem;
 }
 
 /* 
-Below is added by Kara temporarily
+Fall showcase
+sorry for messy coding :(
 */
-.gallery {
-	margin: 60px 40px;
-	padding: 20px;
-	background-color: rgb(57, 64, 102);
-}
-
-.gallery h2 {
-	padding-left: 5px;
-}
-
-.gallery img {
-	width: 24%;
-	padding: 5px;
-	transition: .5s;
-	cursor: pointer;
-}
-
-.gallery img:hover{
-	transform: scale(1.05);
-}
-
-#lightbox {
-	position: fixed;
-	z-index: 1000;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, .8);
-	display: none;
-  }
-  
-#lightbox.active {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-  }
-  
-#lightbox img {
-	max-width: 90%;
-	max-height: 80%;
-	padding: 4px;
-	background-color: white;
-  }
-
-/* Below added by Matthew */
-.logoImage {
-	max-width: 60%;
-}
-@media screen and (max-width: 736px) {
-	.logoImage {
-		max-width: 100%;
-	}
-}
 
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
@@ -2349,7 +2265,7 @@ input, select, textarea {
 
 		.image.fit {
 			display: block;
-			margin: 2em 0 0 0;
+			margin: 0 0 2em 0;
 			width: 100%;
 		}
 
@@ -2899,18 +2815,17 @@ input, select, textarea {
 			-webkit-transition: -webkit-transform 0.25s ease, opacity 0.25s ease, -webkit-filter 1s ease, -webkit-filter 1s ease;
 			-ms-transition: -ms-transform 0.25s ease, opacity 0.25s ease, -ms-filter 1s ease, -webkit-filter 1s ease;
 			transition: transform 0.25s ease, opacity 0.25s ease, filter 1s ease, -webkit-filter 1s ease;
-			/* padding: 4em 4em 2em 4em ; */
-			/* background-position: center;
-			background-repeat: no-repeat; */
-			/* background-size: cover; */
+			padding: 4em 4em 2em 4em ;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
 			cursor: default;
 			height: 40vh;
-			/* max-height: 40em;
-			min-height: 23em; */
-			/* overflow: hidden; */
-
-			width: 100%;
-			height: 100%
+			max-height: 40em;
+			min-height: 23em;
+			overflow: hidden;
+			position: relative;
+			width: 40%;
 		}
 
 			.tiles article .image {
@@ -2918,14 +2833,12 @@ input, select, textarea {
 			}
 
 			.tiles article header {
-				top: 40%;
-				margin-left: 5em;
-				position: absolute;
+				position: relative;
 				z-index: 3;
 			}
 
 			.tiles article h3 {
-				font-size: 3em;
+				font-size: 1.75em;
 			}
 
 				.tiles article h3 a:hover {
@@ -2952,7 +2865,7 @@ input, select, textarea {
 				display: block;
 				height: 100%;
 				left: 0;
-				opacity: 0.55;
+				opacity: 0.85;
 				position: absolute;
 				width: 100%;
 				z-index: 2;
@@ -2985,25 +2898,25 @@ input, select, textarea {
 				filter: blur(0.5em);
 				opacity: 0;
 			}
-            /* 
+
 			.tiles article:nth-child(4n - 1), .tiles article:nth-child(4n - 2) {
 				width: 60%;
-			} */
+			}
 
 			.tiles article:nth-child(6n - 5):before {
-				background-color:  #0EB9AE;
+				background-color: #6fc3df;
 			}
 
 			.tiles article:nth-child(6n - 4):before {
-				background-color: #50D0A1;
+				background-color: #8d82c4;
 			}
 
 			.tiles article:nth-child(6n - 3):before {
-				background-color:  #3C99AA;
+				background-color: #ec8d81;
 			}
 
 			.tiles article:nth-child(6n - 2):before {
-				background-color: #267392;
+				background-color: #e7b788;
 			}
 
 			.tiles article:nth-child(6n - 1):before {
@@ -3026,6 +2939,7 @@ input, select, textarea {
 		}
 
 		@media screen and (max-width: 980px) {
+
 			.tiles article {
 				width: 50% !important;
 			}
@@ -4112,89 +4026,3 @@ input, select, textarea {
 #searchBar {
 	top: 20px;
 }
-
-#contactz {
-	border-bottom: solid 1px rgba(212, 212, 255, 0.1);
-	overflow-x: hidden;
-}
-
-	#contactz > .inner {
-		display: -moz-flex;
-		display: -webkit-flex;
-		display: -ms-flex;
-		display: flex;
-		padding: 0 !important;
-	}
-
-		#contactz > .inner > :nth-child(2n - 1) {
-			padding: 4em 3em 2em 0 ;
-			border-right: solid 1px rgba(212, 212, 255, 0.1);
-			width: 50%;
-		}
-
-		#contactz > .inner > :nth-child(2n) {
-			padding-left: 3em;
-			width: 50%;
-		}
-
-		#contactz > .inner > .split {
-			padding: 0;
-		}
-
-			#contactz > .inner > .split > * {
-				padding: 4em 0 1em 3em ;
-				position: relative;
-			}
-
-				#contactz > .inner > .split > *:before {
-					border-top: solid 1px rgba(212, 212, 255, 0.1);
-					content: '';
-					display: block;
-					margin-left: -3em;
-					position: absolute;
-					top: 0;
-					width: calc(100vw + 3em);
-				}
-
-			#contactz > .inner > .split > :first-child:before {
-				display: none;
-			}
-
-	@media screen and (max-width: 980px) {
-
-		#contactz > .inner {
-			display: block;
-		}
-
-			#contactz > .inner > :nth-child(2n - 1) {
-				padding: 4em 0 2em 0 ;
-				border-right: 0;
-				width: 100%;
-			}
-
-			#contactz > .inner > :nth-child(2n) {
-				padding-left: 0;
-				width: 100%;
-			}
-
-			#contactz > .inner > .split > * {
-				padding: 3em 0 1em 0 ;
-			}
-
-			#contactz > .inner > .split > :first-child:before {
-				display: block;
-			}
-
-	}
-
-	.devimg {
-		width: 100%;
-		text-align: center;
-		height: 350px;
-		object-fit: cover;
-
-	}
-
-	.devimg:hover {
-		opacity: 75%;
-	}

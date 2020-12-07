@@ -37,8 +37,6 @@ function addOfficer(data,dataId) {
 
 	var nextCenter = document.createElement("center"); 
 	var nextText =  document.createElement("small");
-	nextText.style.fontSize = "small";
-	nextText.style.lineHeight = "0.5";
 	nextText.innerHTML = data[dataId].Major;
 	
 	nextCenter.appendChild(nextText);
@@ -49,10 +47,10 @@ function addOfficer(data,dataId) {
 	var newIMG = document.createElement("img"); 
 	newIMG.src = data[dataId].ProfilePic;
 
-	newA.appendChild(newIMG);
-	newDiv.appendChild(newA);
 	newDiv.appendChild(newCenter);
 	newDiv.appendChild(nextCenter);
+	newA.appendChild(newIMG);
+	newDiv.appendChild(newA);
 
 	var num = Math.floor(dataId/3);
 	if (num%2 == 0) {
