@@ -1,22 +1,25 @@
 //GLOBALS
-
-window.addEventListener('DOMContentLoaded', initPage)
-const {fetchEvents}  = require('../../fetchEvents');
-
 var AT_STRING = " from ";
 var IN_STRING = " in ";
 var eventSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1OrcE2Y49yIGPfKYSlQnqHWWVWR3eT-VVz37uOpp0PE0/edit?usp=sharing';
 var textSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1Vm2Gqg-lSGlC6E0K8HxRQ43Ezr73HLF7nOTJnQ8VTuo/edit?usp=sharing';
 var affilateSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1a2uw-hQ9gd2x85oe_mvbOJ3brnlluaIyzjzYnxQDYio/edit?usp=sharing'
+
+
+
+// window.addEventListener('DOMContentLoaded', initPage);
+
+
 //initialize loading in data for events
 function initPage(){
-  fetchEvents();
+
+
+
+  // fetchEvents();
   // initEvents();
   // initBanner();
   // initAffiliate();
 }
-
-
 
 
 
