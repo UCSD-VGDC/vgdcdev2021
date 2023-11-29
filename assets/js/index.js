@@ -1,5 +1,5 @@
 
-module.exports.func = function gapiLoaded() {
+export default function gapiLoaded() {
     window.gapi.load('client', initializeGapiClient)
 }
 
