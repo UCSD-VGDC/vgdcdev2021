@@ -13,7 +13,90 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<script src="https://use.fontawesome.com/cc7ad2dbcf.js"></script>
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+		<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script> -->
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+		<script src="./assets/js/eventCard.js" type="module"></script>
+		<script src="./const.js" type="module"></script>
+
+		<script type="module" >
+
+			import {API_KEY, SPREADSHEET_ID} from './const.js';
+			const eventBin = document.getElementById("eventBin");
+	
+	
+			function gapiLoaded() {
+				window.gapi.load('client', initializeGapiClient)
+			}
+	
+			async function initializeGapiClient() {
+				console.log("initializing");
+				await window.gapi.client.init({
+					'apiKey': API_KEY,
+					discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+				}).then(function () {
+					console.log("gapi initialized");
+					readEvents();
+				}).catch((error) => {
+					console.log(error);
+				})
+			}
+	
+			async function readEvents() {
+				window.gapi.client.sheets.spreadsheets.values.get({
+					spreadsheetId: SPREADSHEET_ID,
+					range: 'Sheet1!A2:G'
+				}).then((response) => {
+					const events = response.result.values;
+					if (events) {
+						console.log(events)
+						displayData(events)
+					}
+					else {
+						console.log('no data')
+					}
+				}).catch((error) => {
+					console.log(error)
+				})
+			}
+	
+			function displayData(events) {
+				console.log('displaying events')
+	
+				eventBin.querySelectorAll('event-card').forEach((card) => {
+					card.remove();
+				})
+	
+				events.forEach((event) => {
+	
+					const eventObject = {
+	
+						"title": event[0],
+						"description": event[1],
+						"location": event[2],
+						"date": event[3],
+						"start_time": event[4],
+						"end_time": event[5],
+						"photo_url": event[6]
+					}
+	
+					const eventCard = document.createElement("event-card");
+					eventCard.data = eventObject;
+					console.log(eventCard)
+					eventBin.appendChild(eventCard);
+					console.log("added card")
+	
+				})
+			}
+	
+			window.gapiLoaded = gapiLoaded;
+	
+		</script>
+	
+		<script src="https://apis.google.com/js/api.js" onload="window.gapiLoaded()" type="module"></script>
+	
+
 	</head>
 	<body class="is-preload">
 
@@ -112,9 +195,7 @@
 									<header class="major">
 										<h2>What's New</h2>
 									</header>
-									<dl id="eventBin">
-										
-									</dl>
+									
 									<li><b><a href="winterShowcase2022.html">Winter Showcase!!!</a></b>
 									</li>
 								</div>
@@ -122,10 +203,9 @@
 									<header class="major">
 										<h2>Our Upcoming Events</h2>
 									</header>
-									<dl id="eventBin">
+									<div id="eventBin">
 										
-									</dl>
-									<p>THIS IS UNDER CONSTRUCTION!</p>
+									</div>
 									<p>Join our <a href="https://bit.ly/VGDCUCSD"><b>Discord</b></a> for up-to-date event announcements!</p>
 								</div>
 							</section>
