@@ -16,57 +16,66 @@ class EventCard extends HTMLElement  {
 
             div {
                 display: flex;
-                box-sizing: border-box;
-                justify-content: center;
                 flex-direction: column;
-                text-align: center;
-                max-width: 480px;
+                max-width: 400px;
                 margin: 0 24px 48px 0;
+                padding: 1.5rem;
+                background-color: rgba(65,71,103, 0.62);
+                border-radius: 20px;
             }
 
             h2, p#dateTime {
                 margin: 0;
             }
 
-            #cardContent {
-                display: flex;
-                background: white;
-                height: 320px;
-                width: 480px;
-                border-radius: 20px;
-            }
-
-            svg {
-                position: relative;
-                top: 24px;
-                right: 24px;
-                z-index: 13;
-            }
-
-
             #imageContainer {
-                z-index: 10;
-                position: absolute;
-
+                
                 & img {
-                    width: 480px;
+                    width: 400px;
                     height: 320px;
                     border-radius: 20px;
                     object-fit: cover;
-                    z-index: 11;
+                    margin-bottom: 1rem;
+
                 }
             }
 
-            #eventDetails {
-                display: none;
-                z-index: 12;
+            #eventHeader {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
 
+                & h2 {
+                    margin-left: 1rem;
+                    font-size: 2rem;
+                }
+
+                & svg {
+                    background: rgb(73, 157, 235);
+                    border-radius: 100px;
+                    padding: 10px;
+                    cursor: pointer;
+                }
+            }
+       
+
+            #eventDetails {
+                margin-bottom: 1rem;
+
+                & p#dateTime {
+                    font-size: 1.2rem;
+                }
             }
 
-
-
-
-
+            button {
+                border: none;
+                background: rgb(60, 153, 170);
+                padding: 8px 10px;
+                border-radius: 14px;
+                font-size: 1.2rem;
+                color: white;
+            }
 
         `;
         
@@ -97,26 +106,37 @@ class EventCard extends HTMLElement  {
 
         `
             <section id = "cardContent">
-                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="34" height="34"><path d="M 12 1 C 10.346 1 9 2.346 9 4 C 9 5.654 10.346 7 12 7 C 13.654 7 15 5.654 15 4 C 15 2.346 13.654 1 12 1 z M 13 7.1035156 L 13 12 C 13 12.552 12.553 13 12 13 C 11.447 13 11 12.552 11 12 L 11 7.1054688 C 10.652 7.1794687 10.308609 7.2884531 9.9746094 7.4394531 L 2.1347656 10.96875 C 1.4647656 11.27075 1.0299531 11.936031 1.0019531 12.707031 C 0.97395312 13.484031 1.360625 14.185063 2.015625 14.539062 L 8.6972656 18.154297 C 9.7312656 18.714297 10.866953 18.994141 12.001953 18.994141 C 13.136953 18.994141 14.270687 18.713297 15.304688 18.154297 L 21.986328 14.539062 C 22.640328 14.185063 23.028 13.484031 23 12.707031 C 22.971 11.936031 22.536234 11.27075 21.865234 10.96875 L 14.025391 7.4375 C 13.691391 7.2865 13.348 7.1775156 13 7.1035156 z M 7.5 12 C 8.328 12 9 12.448 9 13 C 9 13.552 8.328 14 7.5 14 C 6.672 14 6 13.552 6 13 C 6 12.448 6.672 12 7.5 12 z M 1.3554688 16.509766 C 1.1670312 16.516938 1 16.671313 1 16.882812 L 1 17.615234 C 1 18.169234 1.3135469 18.675875 1.8105469 18.921875 L 8.2949219 22.130859 C 9.4719219 22.713859 10.735 23.005859 12 23.005859 C 13.264 23.005859 14.527078 22.713859 15.705078 22.130859 L 22.197266 18.917969 C 22.688266 18.674969 23 18.173953 23 17.626953 L 23 16.884766 C 23 16.602766 22.701125 16.420687 22.453125 16.554688 C 20.847125 17.424688 16.255859 19.914062 16.255859 19.914062 C 14.948859 20.621063 13.478 20.994141 12 20.994141 C 10.522 20.994141 9.0511406 20.621062 7.7441406 19.914062 C 7.7441406 19.914062 3.152875 17.424687 1.546875 16.554688 C 1.484875 16.520938 1.4182812 16.507375 1.3554688 16.509766 z"/></svg>
 
                 <span id = "imageContainer">
-
                     ${props["photo_url"] ? `<img src="${props["photo_url"]}" alt="event card photo">` : ''}
                 </span>
-                
-                <article id = "eventDetails">
-                    <h3>${props["title"]}</h3>
-                    <span id = "eventIcon"></span>
-                    <p>${props["description"]}</p>
 
+                
+                <article >
+
+                    <section id = "eventHeader">
+                        <svg width="32" height="32" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="11.375" y="12.8333" width="1.75" height="1.83333" rx="0.875" fill="white"/>
+                            <rect x="6.125" y="10.0833" width="1.75" height="5.5" rx="0.875" fill="white"/>
+                            <rect x="9.625" y="11.9167" width="1.83333" height="5.25" rx="0.916667" transform="rotate(90 9.625 11.9167)" fill="white"/>
+                            <rect x="14" y="11" width="1.75" height="1.83333" rx="0.875" fill="white"/>
+                            <path d="M12.25 7.33325V7.30894C12.25 7.05661 12.25 6.93044 12.2372 6.81804C12.1533 6.07856 11.6657 5.44684 10.9717 5.1783C10.8662 5.13748 10.7441 5.10552 10.5 5.04159V5.04159C10.2559 4.97765 10.1338 4.94569 10.0283 4.90487C9.33426 4.63633 8.84668 4.00461 8.76276 3.26513C8.75 3.15273 8.75 3.02656 8.75 2.77423V1.83325" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M2.625 12.8333C2.625 10.4877 2.625 9.31489 3.16745 8.50697C3.3071 8.29897 3.47 8.11279 3.652 7.95319C4.35893 7.33325 5.38512 7.33325 7.4375 7.33325H13.5625C15.6149 7.33325 16.6411 7.33325 17.348 7.95319C17.53 8.11279 17.6929 8.29897 17.8326 8.50697C18.375 9.31489 18.375 10.4877 18.375 12.8333C18.375 15.1788 18.375 16.3516 17.8326 17.1595C17.6929 17.3675 17.53 17.5537 17.348 17.7133C16.6411 18.3333 15.6149 18.3333 13.5625 18.3333H7.4375C5.38512 18.3333 4.35893 18.3333 3.652 17.7133C3.47 17.5537 3.3071 17.3675 3.16745 17.1595C2.625 16.3516 2.625 15.1788 2.625 12.8333Z" stroke="white" stroke-width="2"/>      
+                        </svg>
+                        <h2>${props["title"]}</h2>
+
+                    </section>
+
+                    <section id = "eventDetails">
+                        <p>${props["description"]}</p>
+                        <p id = "dateTime">${props["date"]}    |   ${props["start_time"]} - ${props["end_time"]}</p>
+                    </section>
+
+                  
                     <button>schedule</button>
                 </article>
             </section>
 
-            <section id = "bottomCardContent">
-                <h2>${props["title"]}</h2>
-                <p id = "dateTime">${props["date"]}    |   ${props["start_time"]} - ${props["end_time"]}</p>
-            </section>
 
           
         `
