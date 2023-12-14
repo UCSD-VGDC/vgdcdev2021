@@ -9,21 +9,22 @@ class EventCard extends HTMLElement  {
         // Div element to hold elements
         const shadow_div = document.createElement("div");
 
-        // Style element for the coffee cards
         const shadow_style = document.createElement("style");
 
         shadow_style.textContent = `
 
-            div {
+            :host {
                 display: flex;
                 flex-direction: column;
-                max-width: 400px;
+                max-width: 460px;
                 margin: 0 24px 48px 0;
                 padding: 1.5rem;
                 background-color: rgba(65,71,103, 0.62);
-                border-radius: 20px;
+                border-radius: 32px;
             }
 
+          
+           
             h2, p#dateTime {
                 margin: 0;
             }
@@ -31,7 +32,7 @@ class EventCard extends HTMLElement  {
             #imageContainer {
                 
                 & img {
-                    width: 400px;
+                    width: 100%;
                     height: 320px;
                     border-radius: 20px;
                     object-fit: cover;
@@ -43,44 +44,69 @@ class EventCard extends HTMLElement  {
             #eventHeader {
                 display: flex;
                 flex-direction: row;
-                flex-wrap: wrap;
                 align-items: center;
 
                 & h2 {
                     margin-left: 1rem;
                     font-size: 2rem;
+                    line-height: 2rem;
+                    max-width: 320px;
                 }
 
                 & svg {
                     background: rgb(73, 157, 235);
                     border-radius: 100px;
                     padding: 10px;
-                    cursor: pointer;
+                    margin-right: 0.5rem;
                 }
             }
        
+            p#description {
+                margin-top: 2rem;
+                color: light-grey;
+                font-size: 1.1rem;
+            }
 
-            #eventDetails {
+
+            #timeDetails {
+                width: 100%;
                 margin-bottom: 1rem;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
 
-                & p#dateTime {
+                & div {
+                    display: block;
+                }
+    
+                & time.dateTime {
+                    margin: 0;
+                    display: block;
                     font-size: 1.2rem;
+                    color: grey;
                 }
             }
 
             button {
                 border: none;
-                background: rgb(60, 153, 170);
-                padding: 8px 10px;
+                background: rgb(42, 47, 74);
+                padding: 10px 12px;
                 border-radius: 14px;
                 font-size: 1.2rem;
                 color: white;
+                transition: background 0.15s ease-in;
             }
+
+            button:hover {
+                cursor: pointer;
+                background:  orange;
+            }
+
 
         `;
         
         shadow.append(shadow_style, shadow_div);
-        
 
     }
 
@@ -102,20 +128,54 @@ class EventCard extends HTMLElement  {
     set data(props) {
         const shadow_div = this.shadowRoot.querySelector('div');
 
-        shadow_div.innerHTML =
+        const format = { month: 'long', day: 'numeric' };
+        const date = new Date(props["date"]);
+        const formattedDate = date.toLocaleDateString('en-US', format);
 
+        const mapping = {
+            "December": "Dev", 
+            "January": "Jan", 
+            "February": "Feb", 
+            "March": "Mar", 
+            "April": "Apr", 
+            "May": "May", 
+            "June": "Jun", 
+            "July": "Jul", 
+            "August": "Aug", 
+            "September": "Sep", 
+            "October": "Oct", 
+            "November": "Nov", 
+        }
+
+
+        let month = formattedDate.split(' ')[0].trim(); // Extract the day of the week
+        let abbrevMonth = mapping[month];
+        
+
+        // Extract the file ID from the URL using the regular expression
+        var regex = /\/file\/d\/([^\/\?&%\s]+)\/|id=([^\/\?&%\s]+)(?:&|$)/;        
+        const match = props["photo_url"].match(regex);
+        const fileId = match && (match[1] || match[2]);
+
+        let convertedUrl = "";
+    
+        if (fileId) {
+            // Construct the modified Google Drive URL with the file ID
+            convertedUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
+        } 
+
+
+        shadow_div.innerHTML =
         `
             <section id = "cardContent">
 
                 <span id = "imageContainer">
-                    ${props["photo_url"] ? `<img src="${props["photo_url"]}" alt="event card photo">` : ''}
+                    ${props["photo_url"] ? `<img src="${convertedUrl}" alt="event card photo">` : ''}
                 </span>
 
-                
                 <article >
-
                     <section id = "eventHeader">
-                        <svg width="32" height="32" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="32" height="32" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="11.375" y="12.8333" width="1.75" height="1.83333" rx="0.875" fill="white"/>
                             <rect x="6.125" y="10.0833" width="1.75" height="5.5" rx="0.875" fill="white"/>
                             <rect x="9.625" y="11.9167" width="1.83333" height="5.25" rx="0.916667" transform="rotate(90 9.625 11.9167)" fill="white"/>
@@ -127,24 +187,20 @@ class EventCard extends HTMLElement  {
 
                     </section>
 
-                    <section id = "eventDetails">
-                        <p>${props["description"]}</p>
-                        <p id = "dateTime">${props["date"]}    |   ${props["start_time"]} - ${props["end_time"]}</p>
+                    <p id = "description">${props["description"]}</p>
+                    <section id = "timeDetails">
+                        <div>
+                            <time class = "dateTime"><b>${formattedDate.replace(month, abbrevMonth)}</b></time>
+                            <time class = "dateTime"><b>${props["start_time"]} - ${props["end_time"]}</b></time>
+                        </div>
+                        <button id = "scheduleButton"><b>schedule<b></button>
+
                     </section>
 
-                  
-                    <button>schedule</button>
                 </article>
-            </section>
-
-
-          
+            </section>   
         `
     }
-
-  
-
-
 }
 
 customElements.define("event-card", EventCard);
