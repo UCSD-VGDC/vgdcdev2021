@@ -1,0 +1,27 @@
+html {
+    overflow-x: scroll;
+}
+
+div#eventBin {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+}
+
+
+div#eventBin::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+@media screen and (max-width: 400px) {
+    /* div#eventBin {
+        height: 300px;
+    }
+
+    event-card {
+        height: 200px !important;
+        width: 300px;
+    } */
+}
+

@@ -13,96 +13,145 @@ class EventCard extends HTMLElement  {
 
         shadow_style.textContent = `
 
-            :host {
+
+            section#cardContent {
+                position: relative;
+                width: 380px;
+                height: 348px;
+                margin: 0 24px 48px 0;
+                padding: 24px;
+                background-color: rgb(65,71,103);
+                border-radius: 32px;
+                overflow: hidden;
+                transition: .2s ease-in-out;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+
+            }      
+
+            @media screen and (max-width: 480px) {
+                section#cardContent {
+                    scale: 0.77;
+                    transform-origin: top left; /* Set the transform origin to the top-left corner */
+                    margin-right: -64px;
+                }
+
+                article#cardDetails p#description {
+                    font-size: 16px !important;
+                } 
+               
+                
+            }
+          
+
+
+            section#cardContent:hover article#cardDetails {
+                transform: translateY(0);
+                opacity: 1;
+            }
+              
+            section#cardContent:hover #cardPreview {
+                opacity: 0;
+            }
+            
+           
+
+            #cardPreview {
                 display: flex;
                 flex-direction: column;
-                max-width: 460px;
-                margin: 0 24px 48px 0;
-                padding: 1.5rem;
-                background-color: rgba(65,71,103, 0.62);
-                border-radius: 32px;
-            }
-
-          
-           
-            h2, p#dateTime {
-                margin: 0;
-            }
-
-            #imageContainer {
-                
+                width: inherit;
+                height: 348px;
+                transition: all 0.3s ease-in-out;
+                position: absolute;
+            
                 & img {
                     width: 100%;
-                    height: 320px;
+                    height: 280px;
                     border-radius: 20px;
-                    object-fit: cover;
+                    object-fit: scale;
                     margin-bottom: 1rem;
-
                 }
             }
 
             #eventHeader {
                 display: flex;
                 flex-direction: row;
-                align-items: center;
-
-                & h2 {
-                    margin-left: 1rem;
-                    font-size: 2rem;
-                    line-height: 2rem;
-                    max-width: 320px;
-                }
+                justify-content: flex-start;
+                padding: 0;
 
                 & svg {
-                    background: rgb(73, 157, 235);
-                    border-radius: 100px;
+                    background: linear-gradient(30deg, #ce68d9, #45c6db);
+                    border-radius: 12px;
                     padding: 10px;
-                    margin-right: 0.5rem;
+                    min-width: 32px;
+                    min-height: 32px;
+                }
+
+                & h2 {
+                    margin-left: 0.8rem;
+                    margin-top: 0;
+                    font-size: 1.4rem;
+                    line-height: 1.4rem;
+                    padding: 0;
                 }
             }
-       
-            p#description {
-                margin-top: 2rem;
-                color: light-grey;
-                font-size: 1.1rem;
-            }
-
-
-            #timeDetails {
+            
+            article#cardDetails {
+                transform: translateY(100%);
+                opacity: 0;
+                transition: all 0.3s ease-in-out;
+                height: 348px;
+                position: relative;
                 width: 100%;
-                margin-bottom: 1rem;
-                display: flex;
-                flex-wrap: wrap;
+                display: flex
+                flex-direction: column;
                 justify-content: space-between;
-                align-items: center;
 
-                & div {
-                    display: block;
+                p#description {
+                    color: light-grey;
+                    font-size: 0.9rem;
                 }
+
+                #timeDetails {
+                    width: 100%;
+                    margin-bottom: 1rem;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0;
+                    align-items: center;
+                    
+                    & time.dateTime {
+                        width: 100%;
+                        display: block;
+                        font-size: 1rem;
+                        color: white;
+                    }
+
+                    & h2, p#dateTime {
+                        margin: 0;
+                    }
+
+                    & button {
+                        border: none;
+                        background: orange;
+                        padding: 10px 12px;
+                        margin: 0;
+                        border-radius: 14px;
+                        font-size: 1.1rem;
+                        color: white;
+                        margin-left: 6rem;
+                        transition: background 0.2s ease-in;
+                    }
     
-                & time.dateTime {
-                    margin: 0;
-                    display: block;
-                    font-size: 1.2rem;
-                    color: grey;
+                    & button:hover {
+                        cursor: pointer;
+                        background: linear-gradient(163deg, #00ff75 0%, #ce68d9 100%);
+                    }
                 }
+                
             }
-
-            button {
-                border: none;
-                background: rgb(42, 47, 74);
-                padding: 10px 12px;
-                border-radius: 14px;
-                font-size: 1.2rem;
-                color: white;
-                transition: background 0.15s ease-in;
-            }
-
-            button:hover {
-                cursor: pointer;
-                background:  orange;
-            }
-
 
         `;
         
@@ -169,13 +218,10 @@ class EventCard extends HTMLElement  {
         `
             <section id = "cardContent">
 
-                <span id = "imageContainer">
+                <div id = "cardPreview">
                     ${props["photo_url"] ? `<img src="${convertedUrl}" alt="event card photo">` : ''}
-                </span>
-
-                <article >
                     <section id = "eventHeader">
-                        <svg width="32" height="32" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="32px" height="32px" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="11.375" y="12.8333" width="1.75" height="1.83333" rx="0.875" fill="white"/>
                             <rect x="6.125" y="10.0833" width="1.75" height="5.5" rx="0.875" fill="white"/>
                             <rect x="9.625" y="11.9167" width="1.83333" height="5.25" rx="0.916667" transform="rotate(90 9.625 11.9167)" fill="white"/>
@@ -186,7 +232,10 @@ class EventCard extends HTMLElement  {
                         <h2>${props["title"]}</h2>
 
                     </section>
+                </div>
+                
 
+                <article id = "cardDetails">
                     <p id = "description">${props["description"]}</p>
                     <section id = "timeDetails">
                         <div>

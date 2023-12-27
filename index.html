@@ -19,7 +19,7 @@
 
 		<script src="./assets/js/eventCard.js" type="module"></script>
 		<script src="./const.js" type="module"></script>
-
+		<link rel = "stylesheet" href = "style.css">
 		<script type="module" >
 
 			import {API_KEY, SPREADSHEET_ID} from './const.js';
@@ -71,7 +71,6 @@
 				events.forEach((event) => {
 	
 					const eventObject = {
-	
 						"title": event[0],
 						"description": event[1],
 						"location": event[2],
