@@ -50,8 +50,13 @@
 				}).then((response) => {
 					const events = response.result.values;
 					if (events) {
-						console.log(events)
-						displayData(events)
+						console.log(events);
+						const currentDate = new Date();
+						const filteredEvents = events.filter((event) => {
+							const eventDate = new Date(event[3]);
+							return currentDate < eventDate;
+						})
+						displayData(filteredEvents)
 					}
 					else {
 						console.log('no data')
@@ -204,6 +209,9 @@
 									</header>
 									<div id="eventBin">
 										
+									</div>
+									<div id="noData">
+
 									</div>
 									<p>Join our <a href="https://bit.ly/VGDCUCSD"><b>Discord</b></a> for up-to-date event announcements!</p>
 								</div>

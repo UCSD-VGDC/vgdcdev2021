@@ -135,7 +135,7 @@ class EventCard extends HTMLElement  {
 
                     & button {
                         border: none;
-                        background: orange;
+                        background: #ce68d9;
                         padding: 10px 12px;
                         margin: 0;
                         border-radius: 14px;
@@ -143,12 +143,10 @@ class EventCard extends HTMLElement  {
                         color: white;
                         margin-left: 6rem;
                         transition: background 0.2s ease-in;
+                        cursor: pointer;
                     }
     
-                    & button:hover {
-                        cursor: pointer;
-                        background: linear-gradient(163deg, #00ff75 0%, #ce68d9 100%);
-                    }
+                    
                 }
                 
             }
@@ -219,7 +217,7 @@ class EventCard extends HTMLElement  {
             <section id = "cardContent">
 
                 <div id = "cardPreview">
-                    ${props["photo_url"] ? `<img src="${convertedUrl}" alt="event card photo">` : ''}
+                    ${props["photo_url"] ? `<img loading="lazy"src="${convertedUrl}" alt="event card photo">` : ''}
                     <section id = "eventHeader">
                         <svg width="32px" height="32px" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="11.375" y="12.8333" width="1.75" height="1.83333" rx="0.875" fill="white"/>
