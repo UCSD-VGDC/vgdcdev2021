@@ -64,12 +64,13 @@
 						}
 						else {
 							displayData(filteredEvents)
-
 						}
 					}
 					else {
+						const noData = document.querySelector("div#noData");
+						noData.style.display = "block"
 						console.log('no data')
-						
+					
 					}
 				}).catch((error) => {
 					console.log(error)
