@@ -142,8 +142,12 @@ class EventCard extends HTMLElement  {
                         font-size: 1.1rem;
                         color: white;
                         margin-left: 6rem;
-                        transition: background 0.2s ease-in;
+                        transition: all 0.2s ease-in;
                         cursor: pointer;
+                    }
+
+                    & button:hover {
+                        box-shadow: 0px 2px 5px rgba(255, 70, 200, 0.8);
                     }
     
                     
@@ -167,8 +171,8 @@ class EventCard extends HTMLElement  {
 	 *			"description": string,
 	 *			"location": string,
 	 *			"date": date,
-	 *			"time_start": time,
-	 *			"time_end": time,
+	 *			"start_time": time,
+	 *			"end_time": time,
 	 *			"photo_url": string
      *      }
      */
@@ -198,7 +202,6 @@ class EventCard extends HTMLElement  {
         let month = formattedDate.split(' ')[0].trim(); // Extract the day of the week
         let abbrevMonth = mapping[month];
         
-
         // Extract the file ID from the URL using the regular expression
         var regex = /\/file\/d\/([^\/\?&%\s]+)\/|id=([^\/\?&%\s]+)(?:&|$)/;        
         const match = props["photo_url"].match(regex);
@@ -209,15 +212,72 @@ class EventCard extends HTMLElement  {
         if (fileId) {
             // Construct the modified Google Drive URL with the file ID
             convertedUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
+            convertedUrl = `https://drive.google.com/thumbnail?id=${fileId}`;
+            // convertedUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=view&authuser=2`;
+            console.log(convertedUrl)
         } 
 
+        const formatCalendarTime = (dateString, timeString)  => {
+            console.log(dateString, timeString)
+            const dateParts = dateString.split('/');
+            const year = parseInt(dateParts[2], 10);
+            const month = parseInt(dateParts[0], 10) - 1; // Months are 0-indexed in JavaScript
+            const day = parseInt(dateParts[1], 10);
+        
+            const timeParts = timeString.match(/(\d+):(\d+)(\w+)/);
+            let hours = parseInt(timeParts[1], 10);
+            const minutes = parseInt(timeParts[2], 10);
+            const period = timeParts[3].toUpperCase();
+        
+            // Adjust hours for PM
+            if (period === 'PM' && hours < 12) {
+                hours = 0;
+            } else if (period === 'AM' && hours === 12) {
+                // Adjust midnight (12:00AM) to 0 hours
+                hours += 12;
+            }
+            // Create a new Date object with the parsed values
+            const date = new Date(year, month, day, hours, minutes);
+        
+            // Format the date for Google Calendar
+            return date.toISOString().replace(/-|:|\.\d+/g, '');
+        };
 
+
+      
+        const openGoogleCalendarLink = (link) => {
+            console.log('opening calendar with link: ', link)
+            const newTab = window.open(link, '_blank');
+            
+            // Check if the new tab was successfully opened
+            if (newTab) {
+                newTab.focus();
+            } else {
+                // Handle the case where the new tab couldn't be opened
+                console.error('Unable to open new tab.');
+            }
+        }
+    
+     
+                
+        const googleCalendarLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+            props["title"]
+        )}&details=${encodeURIComponent(
+            props["description"] 
+        )}&dates=${encodeURIComponent(
+            formatCalendarTime(`${props['date']}`, `${props[`start_time`]}`)
+        )}/${encodeURIComponent(
+            formatCalendarTime(`${props[`date`]}`, `${props[`end_time`]}`)
+        )}&location=${encodeURIComponent(props["location"])}`;
+
+
+        
         shadow_div.innerHTML =
         `
             <section id = "cardContent">
 
                 <div id = "cardPreview">
-                    ${props["photo_url"] ? `<img loading="lazy"src="${convertedUrl}" alt="event card photo">` : ''}
+                    ${props["photo_url"] ? `<img referrer-policy = "no-referrer" src=${convertedUrl} alt="event card photo">` : ''}
                     <section id = "eventHeader">
                         <svg width="32px" height="32px" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="11.375" y="12.8333" width="1.75" height="1.83333" rx="0.875" fill="white"/>
@@ -240,7 +300,7 @@ class EventCard extends HTMLElement  {
                             <time class = "dateTime"><b>${formattedDate.replace(month, abbrevMonth)}</b></time>
                             <time class = "dateTime"><b>${props["start_time"]} - ${props["end_time"]}</b></time>
                         </div>
-                        <button id = "scheduleButton"><b>schedule<b></button>
+                        <button id = "scheduleButton" onclick = "${openGoogleCalendarLink(googleCalendarLink)}"><b>schedule<b></button>
 
                     </section>
 
