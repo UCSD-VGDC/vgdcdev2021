@@ -224,17 +224,21 @@ class EventCard extends HTMLElement  {
             const month = parseInt(dateParts[0], 10) - 1; // Months are 0-indexed in JavaScript
             const day = parseInt(dateParts[1], 10);
         
-            const timeParts = timeString.match(/(\d+):(\d+)(\w+)/);
+            console.log("Original timeString:", timeString);
+            const timeParts = timeString.match(/(\d+):(\d+)\s?(\w+)/);
+            console.log("Match result:", timeParts);
+
             let hours = parseInt(timeParts[1], 10);
             const minutes = parseInt(timeParts[2], 10);
             const period = timeParts[3].toUpperCase();
-        
+
+            console.log("period", period)
             // Adjust hours for PM
             if (period === 'PM' && hours < 12) {
-                hours = 0;
+                hours += 12 ;
             } else if (period === 'AM' && hours === 12) {
                 // Adjust midnight (12:00AM) to 0 hours
-                hours += 12;
+                hours += 0;
             }
             // Create a new Date object with the parsed values
             const date = new Date(year, month, day, hours, minutes);
@@ -244,31 +248,20 @@ class EventCard extends HTMLElement  {
         };
 
 
-      
-        const openGoogleCalendarLink = (link) => {
-            console.log('opening calendar with link: ', link)
-            const newTab = window.open(link, '_blank');
-            
-            // Check if the new tab was successfully opened
-            if (newTab) {
-                newTab.focus();
-            } else {
-                // Handle the case where the new tab couldn't be opened
-                console.error('Unable to open new tab.');
-            }
-        }
-    
-     
+
                 
-        const googleCalendarLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-            props["title"]
-        )}&details=${encodeURIComponent(
-            props["description"] 
-        )}&dates=${encodeURIComponent(
-            formatCalendarTime(`${props['date']}`, `${props[`start_time`]}`)
-        )}/${encodeURIComponent(
-            formatCalendarTime(`${props[`date`]}`, `${props[`end_time`]}`)
-        )}&location=${encodeURIComponent(props["location"])}`;
+        const getGoogleCalendarLink = () => {
+
+            return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+                "VGDC: " + props["title"]
+            )}&details=${encodeURIComponent(
+                props["description"] 
+            )}&dates=${encodeURIComponent(
+                formatCalendarTime(`${props['date']}`, `${props[`start_time`]}`)
+            )}/${encodeURIComponent(
+                formatCalendarTime(`${props[`date`]}`, `${props[`end_time`]}`)
+            )}&location=${encodeURIComponent(props["location"])}`;
+        }
 
 
         
@@ -300,13 +293,22 @@ class EventCard extends HTMLElement  {
                             <time class = "dateTime"><b>${formattedDate.replace(month, abbrevMonth)}</b></time>
                             <time class = "dateTime"><b>${props["start_time"]} - ${props["end_time"]}</b></time>
                         </div>
-                        <button id = "scheduleButton" onclick = "${openGoogleCalendarLink(googleCalendarLink)}"><b>schedule<b></button>
+                        <button id = "scheduleButton"><b>schedule<b></button>
 
                     </section>
 
                 </article>
             </section>   
         `
+
+        this.shadowRoot.getElementById('scheduleButton').addEventListener("click", () => {
+            // Don't dispatch the click event. Instead use a custom event
+            this.dispatchEvent(new CustomEvent("trigger-calendar", {
+                composed: true,
+                bubbles: true,
+                detail: getGoogleCalendarLink()
+            }))
+        })
     }
 }
 

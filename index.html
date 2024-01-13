@@ -25,6 +25,18 @@
 			import {API_KEY, SPREADSHEET_ID} from './const.js';
 			const eventBin = document.getElementById("eventBin");
 	
+
+			window.addEventListener('trigger-calendar', function (event) {
+				const link = event.detail;
+
+				console.log('opening calendar with link: ', link)
+				const newTab = window.open(link, '_blank');
+				
+				// Check if the new tab was successfully opened
+				if (newTab) {
+					newTab.focus();
+				} 
+			})
 	
 			function gapiLoaded() {
 				window.gapi.load('client', initializeGapiClient)
