@@ -9,10 +9,10 @@ class EventCard extends HTMLElement  {
         // Div element to hold elements
         const shadow_div = document.createElement("div");
 
+
         const shadow_style = document.createElement("style");
 
         shadow_style.textContent = `
-
 
             section#cardContent {
                 position: relative;
@@ -155,6 +155,7 @@ class EventCard extends HTMLElement  {
                 
             }
 
+
         `;
         
         shadow.append(shadow_style, shadow_div);
@@ -168,17 +169,16 @@ class EventCard extends HTMLElement  {
      * 
      *      props {
      *          "title": string,
-	 *			"description": string,
-	 *			"location": string,
-	 *			"date": date,
-	 *			"start_time": time,
-	 *			"end_time": time,
-	 *			"photo_url": string
+     *			"description": string,
+     *			"location": string,
+     *			"date": date,
+     *			"start_time": time,
+     *			"end_time": time,
+     *			"photo_url": string
      *      }
      */
     set data(props) {
         const shadow_div = this.shadowRoot.querySelector('div');
-
         const format = { month: 'long', day: 'numeric' };
         const date = new Date(props["date"]);
         const formattedDate = date.toLocaleDateString('en-US', format);
@@ -310,6 +310,7 @@ class EventCard extends HTMLElement  {
             }))
         })
     }
+
 }
 
 customElements.define("event-card", EventCard);
