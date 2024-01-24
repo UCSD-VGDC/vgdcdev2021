@@ -70,7 +70,7 @@ class EventCard extends HTMLElement  {
                     width: 100%;
                     height: 280px;
                     border-radius: 20px;
-                    object-fit: scale;
+                    object-fit: fill;
                     margin-bottom: 1rem;
                 }
             }
