@@ -65,8 +65,8 @@
 						console.log(events);
 						const currentDate = new Date();
 						const filteredEvents = events.filter((event) => {
-							const eventDate = new Date(event[3]);
-							return currentDate < eventDate;
+							const eventDate = new Date(event[3] + ' ' + event[5]);
+							return currentDate <= eventDate;
 						})
 
 						if(filteredEvents.length == 0) {
