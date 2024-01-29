@@ -7,6 +7,54 @@
 	License: pixelarity.com/license
 */
 
+/*
+Officer page
+*/
+
+.officer-title {
+	width: 100%;
+	text-align: center;
+}
+
+.officer-box {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.officer-box > div {
+	display: block;
+	width: 250px;
+	height: 320px;
+	background-color:#242943;
+	margin: 8px;
+	text-align: center;
+	border-radius: 8px;
+	line-height: 30px;
+}
+
+.officer-sprite {
+	scale: 4;
+	transform-origin: top center;
+	image-rendering: pixelated;
+	margin-top: 5px;
+}
+
+.officer-name {
+	margin-top: 20px;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 24px;
+	height: 48px;
+	align-items: center;
+}
+
+.officer-role {
+	font-size: 20px;
+	margin-top: 145px;
+}
+
 /* 
 Fall showcase
 sorry for messy coding :(
