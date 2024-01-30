@@ -16,7 +16,121 @@
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+	<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script> -->
+
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+	<script src="./assets/js/eventCard.js" type="module"></script>
+	<script src="./const.js" type="module"></script>
+	<link rel="stylesheet" href="style.css">
+	<script type="module">
+
+		import { API_KEY, SPREADSHEET_ID } from './const.js';
+		const eventBin = document.getElementById("eventBin");
+
+
+		window.addEventListener('trigger-calendar', function (event) {
+			const link = event.detail;
+
+			console.log('opening calendar with link: ', link)
+			const newTab = window.open(link, '_blank');
+
+			// Check if the new tab was successfully opened
+			if (newTab) {
+				newTab.focus();
+			}
+		})
+
+		function gapiLoaded() {
+			window.gapi.load('client', initializeGapiClient)
+		}
+
+		async function initializeGapiClient() {
+			console.log("initializing");
+			await window.gapi.client.init({
+				'apiKey': API_KEY,
+				discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+			}).then(function () {
+				console.log("gapi initialized");
+				readEvents();
+			}).catch((error) => {
+				console.log(error);
+			})
+		}
+
+		async function readEvents() {
+			window.gapi.client.sheets.spreadsheets.values.get({
+				spreadsheetId: SPREADSHEET_ID,
+				range: 'Sheet1!A2:G'
+			}).then((response) => {
+				const events = response.result.values;
+				if (events.length != 0) {
+					console.log(events);
+					const currentDate = new Date();
+					const filteredEvents = events.filter((event) => {
+						const eventDate = new Date(event[3] + ' ' + event[5]);
+						return currentDate <= eventDate;
+					})
+
+					if (filteredEvents.length == 0) {
+						console.log("no upcoming events")
+						const noData = document.querySelector("div#noData");
+						noData.style.display = "block"
+					}
+					else {
+						displayData(filteredEvents)
+					}
+				}
+				else {
+					const noData = document.querySelector("div#noData");
+					noData.style.display = "block"
+					console.log('no data')
+
+				}
+			}).catch((error) => {
+				console.log(error)
+			})
+		}
+
+		function displayData(events) {
+
+
+			console.log('displaying events')
+
+
+			eventBin.querySelectorAll('event-card').forEach((card) => {
+				card.remove();
+			})
+
+			events.forEach((event) => {
+
+				const eventObject = {
+					"title": event[0],
+					"description": event[1],
+					"location": event[2],
+					"date": event[3],
+					"start_time": event[4],
+					"end_time": event[5],
+					"photo_url": event[6]
+				}
+
+				const eventCard = document.createElement("event-card");
+				eventCard.data = eventObject;
+				console.log(eventCard)
+				eventBin.appendChild(eventCard);
+				console.log("added card")
+
+			})
+		}
+
+		window.gapiLoaded = gapiLoaded;
+
+	</script>
+
+	<script src="https://apis.google.com/js/api.js" onload="window.gapiLoaded()" type="module"></script>
+
+
 </head>
 
 <body class="is-preload">
@@ -121,9 +235,7 @@
 					<header class="major">
 						<h2>What's New</h2>
 					</header>
-					<dl id="eventBin">
 
-					</dl>
 					<li><b><a href="winterShowcase2022.html">Winter Showcase!!!</a></b>
 					</li>
 				</div>
@@ -131,10 +243,12 @@
 					<header class="major">
 						<h2>Our Upcoming Events</h2>
 					</header>
-					<dl id="eventBin">
+					<div id="eventBin">
 
-					</dl>
-					<p>THIS IS UNDER CONSTRUCTION!</p>
+					</div>
+					<div id="noData" style="display: none">
+						<p>No Upcoming Events</p>
+					</div>
 					<p>Join our <a href="https://bit.ly/VGDCUCSD"><b>Discord</b></a> for up-to-date event announcements!
 					</p>
 				</div>
