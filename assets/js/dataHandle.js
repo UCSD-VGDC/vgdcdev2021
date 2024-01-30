@@ -6,9 +6,9 @@ var textSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1Vm2Gqg-lSGlC6E
 var affilateSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1a2uw-hQ9gd2x85oe_mvbOJ3brnlluaIyzjzYnxQDYio/edit?usp=sharing'
 //initialize loading in data for events
 function initPage(){
-  initEvents();
-  initBanner();
-  initAffiliate();
+  // initEvents();
+  // initBanner();
+  // initAffiliate();
 }
 //initializes reading and render of event info
 function initEvents() {
