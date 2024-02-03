@@ -211,8 +211,8 @@ class EventCard extends HTMLElement  {
     
         if (fileId) {
             // Construct the modified Google Drive URL with the file ID
-            convertedUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
-            convertedUrl = `https://drive.google.com/thumbnail?id=${fileId}`;
+            // convertedUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
+            convertedUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w600`;
             // convertedUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=view&authuser=2`;
             console.log(convertedUrl)
         } 
