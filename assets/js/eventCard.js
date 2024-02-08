@@ -16,8 +16,8 @@ class EventCard extends HTMLElement  {
 
             section#cardContent {
                 position: relative;
-                width: 380px;
-                height: 348px;
+                width: 340px;
+                height: 508px;
                 margin: 0 24px 48px 0;
                 padding: 24px;
                 background-color: rgb(65,71,103);
@@ -62,13 +62,13 @@ class EventCard extends HTMLElement  {
                 display: flex;
                 flex-direction: column;
                 width: inherit;
-                height: 348px;
+                height: 508px;
                 transition: all 0.3s ease-in-out;
                 position: absolute;
             
                 & img {
                     width: 100%;
-                    height: 280px;
+                    height: 440px;
                     border-radius: 20px;
                     object-fit: fill;
                     margin-bottom: 1rem;
@@ -102,7 +102,7 @@ class EventCard extends HTMLElement  {
                 transform: translateY(100%);
                 opacity: 0;
                 transition: all 0.3s ease-in-out;
-                height: 348px;
+                height: 508px;
                 position: relative;
                 width: 100%;
                 display: flex
@@ -212,7 +212,7 @@ class EventCard extends HTMLElement  {
         if (fileId) {
             // Construct the modified Google Drive URL with the file ID
             // convertedUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
-            convertedUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w600`;
+            convertedUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w760`;
             // convertedUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=view&authuser=2`;
             console.log(convertedUrl)
         } 
